@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Your Account</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+   
+  }
+
+  .container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    background-color: #c2e6b9;
+    
+   
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"] 
+  {
+   
+    width:280PX;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+   
+  }
+  
+  button {
+    
+    padding: 10px 20px;
+    background-color: #63fc3d;
+    color: white;
+    border: 7px;
+    border-radius: 5px;
+    cursor: pointer;
+    }
+.error {
+    color: red;
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <form id="validation-form">
+    <div class="form-group">
+        <h2 style="text-align: center;">Create Your Account</h2>
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" name="firstName" required>
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" name="lastName" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone No:</label>
+      <input type="tel" id="phone" name="phone" required>
+    </div>
+    <div class="form-group">
+      <label for="otp">OTP:</label>
+      <input type="text" id="otp" name="otp" required>
+    </div>
+    <div class="form-group" style="text-align: center;" >
+      <button type="button" id="verifyOTP">Verify OTP</button>
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password:</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" required>
+    </div>
+    <div class="form-group" style="text-align: center;">
+      <button type="submit" id="signupButton">Sign Up</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.getElementById("validation-form").addEventListener("submit", function(event)
+   {
+    event.preventDefault();
+    validateForm();
+  });
+
+  function validateForm() {
+    var firstName = document.getElementById("firstName").value.trim();
+    var lastName = document.getElementById("lastName").value.trim();
+    var email = document.getElementById("email").value.trim();
+    var phone = document.getElementById("phone").value.trim();
+    var otp = document.getElementById("otp").value.trim();
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirmPassword").value;
+
+    var errorMessages = [];
+
+    if (firstName === "") {
+        alert("Please fill in all fields.");
+    }
+
+    if (lastName === "") {
+        alert("Please fill in all fields.");
+      
+    }
+
+    if (email === "") 
+    {
+     alert("Email is required.");
+
+    } else if (!isValidEmail(email))
+     {
+      alert("Invalid email address.");
+    }
+
+    if (phone === "")
+     {
+      alert("Phone number is required.");
+     } else if (!isValidPhoneNumber(phone)) 
+     {
+      alert("Invalid phone number.");
+    }
+
+    if (otp === "") {
+     alert("OTP is required.");
+    }
+
+    if (password === "")
+    {
+        alert("Password is required.");
+    } 
+    else if (password.length < 6) 
+    {
+        alert("Password must be at least 6 characters long.");
+    }
+
+    if (confirmPassword !== password) 
+    {
+        alert("Passwords do not match.");
+    }
+
+    if (errorMessages.length > 0) 
+    {
+      var errorDiv = document.createElement("div");
+      errorDiv.className = "error";
+      errorDiv.innerHTML = errorMessages.join("<br>");
+      document.getElementById("signup-form").appendChild(errorDiv);
+    } else {
+      alert("Form submitted successfully!");
+      
+    }
+  }
+
+  function isValidEmail(email) {
+    
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  function isValidPhoneNumber(phone) {
+    
+    var phoneRegex = /^\d{10}$/;
+    return phoneRegex.test(phone);
+  }
+</script>
+</body>
+</html>
